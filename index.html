@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Minecraft Server Status</title>
+<style>
+  body {
+    font-family: sans-serif;
+  }
+  #status-container {
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 5px;
+  }
+  .status-line {
+    margin-bottom: 8px;
+  }
+</style>
+</head>
+<body>
+
+  <h1>Minecraft Server Status</h1>
+  <div id="status-container">
+    <p class="status-line">Loading status...</p>
+  </div>
+
+  <script>
+    const statusContainer = document.getElementById('status-container');
+    const apiUrl = 'https://api.mcsrvstat.us/3/51.81.198.154:25569';
+
+    fetch(apiUrl)
+      .then(response => response.json())
+      .then(data => {
+        statusContainer.innerHTML = ''; // Clear loading message
+
+        const ipPort = `${data.ip}:${data.port}`;
+        const version = data.version;
+        const onlineStatus = data.online ? 'yes' : 'no';
+        const htmlMotd = data.motd.html.join('');
+        const playerCount = `${data.players.online}/${data.players.max}`;
+        const playerList = data.players.list.map(player => player.name).join(', ');
+
+        statusContainer.innerHTML += `<p class="status-line">IP:Port: ${ipPort}</p>`;
+        statusContainer.innerHTML += `<p class="status-line">Version: ${version}</p>`;
+        statusContainer.innerHTML += `<p class="status-line">Online: ${onlineStatus}</p>`;
+        statusContainer.innerHTML += `<p class="status-line">MOTD: ${htmlMotd}</p>`;
+        statusContainer.innerHTML += `<p class="status-line">Players: ${playerCount} (${playerList})</p>`;
+      })
+      .catch(error => {
+        statusContainer.innerHTML = `<p class="status-line">Error fetching server status: ${error}</p>`;
+      });
+  </script>
+
+</body>
+</html>
