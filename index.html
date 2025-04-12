@@ -5,6 +5,10 @@
 <style>
   body {
     font-family: sans-serif;
+    font-size: 18px; /* Increased base font size */
+  }
+  h1 {
+    font-size: 24px; /* Increased heading size */
   }
   #status-container {
     margin-top: 20px;
@@ -13,7 +17,8 @@
     border-radius: 5px;
   }
   .status-line {
-    margin-bottom: 8px;
+    margin-bottom: 10px; /* Slightly increased margin for better spacing */
+    font-size: 20px; /* Increased status line font size */
   }
 </style>
 </head>
@@ -40,7 +45,7 @@
         const playerCount = `${data.players.online}/${data.players.max}`;
         const playerList = data.players.list.map(player => player.name).join(', ');
 
-        statusContainer.innerHTML += `<p class="status-line">IP:Port: ${ipPort}</p>`;
+        statusContainer.innerHTML += `<p class="status-line">Address: ${ipPort}</p>`;
         statusContainer.innerHTML += `<p class="status-line">Version: ${version}</p>`;
         statusContainer.innerHTML += `<p class="status-line">Online: ${onlineStatus}</p>`;
         statusContainer.innerHTML += `<p class="status-line">MOTD: ${htmlMotd}</p>`;
