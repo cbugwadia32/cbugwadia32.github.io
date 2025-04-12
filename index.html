@@ -43,16 +43,16 @@
         const onlineStatus = data.online ? 'yes' : 'no';
         const htmlMotd = data.motd.html.join('');
         const playerCount = `${data.players.online}/${data.players.max}`;
-        let playerListText = 'No players online';
+        let playerListText = '';
         if (data.players.list && data.players.list.length > 0) {
-          playerListText = data.players.list.map(player => player.name).join(', ');
+          playerListText = ' (' + data.players.list.map(player => player.name).join(', ') + ')';
         }
 
         statusContainer.innerHTML += `<p class="status-line">Address: ${ipPort}</p>`;
         statusContainer.innerHTML += `<p class="status-line">Version: ${version}</p>`;
         statusContainer.innerHTML += `<p class="status-line">Online: ${onlineStatus}</p>`;
         statusContainer.innerHTML += `<p class="status-line">MOTD: ${htmlMotd}</p>`;
-        statusContainer.innerHTML += `<p class="status-line">Players: ${playerCount} (${playerListText})</p>`;
+        statusContainer.innerHTML += `<p class="status-line">Players: ${playerCount}${playerListText}</p>`;
       })
       .catch(error => {
         statusContainer.innerHTML = `<p class="status-line">Error fetching server status: ${error}</p>`;
